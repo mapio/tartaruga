@@ -50,7 +50,7 @@ public abstract class Tartaruga {
 	 * 
 	 * @param lato la dimensione dello spazio di disegno.
 	 */
-	public Tartaruga( int lato ) {
+	protected Tartaruga( int lato ) {
 		this.lato = lato;
 		this.g2 = null;
 		this.ascissa = 0;
@@ -59,7 +59,7 @@ public abstract class Tartaruga {
 	}
 	
 	/** Prepara la tartaruga con uno spazio di disegno di lato 400. */
-	public Tartaruga() {
+	protected Tartaruga() {
 		this( 400 );
 	}
 	
@@ -67,7 +67,7 @@ public abstract class Tartaruga {
 	 * 
 	 * @param angolo l'angolo (in gradi) secondo cui ruotare la tartaruga.
 	 */
-	public void sinistra( int angolo ) {
+	protected void sinistra( int angolo ) {
 		this.radianti -= angolo * Math.PI / 180;
 	}
 
@@ -75,7 +75,7 @@ public abstract class Tartaruga {
 	 * 
 	 * @param angolo l'angolo (in gradi) secondo cui ruotare la tartaruga.
 	 */
-	public void destra( int angolo ) {
+	protected void destra( int angolo ) {
 		this.radianti += angolo * Math.PI / 180;
 	}
 
@@ -94,7 +94,7 @@ public abstract class Tartaruga {
 	 *  
 	 * @param lunghezza la lunghezza secondo cui muovere la tartaruga.
 	 */
-	public void avanti( int lunghezza ) {
+	protected void avanti( int lunghezza ) {
 		aggiorna( lunghezza, true );
 	}
 
@@ -103,7 +103,7 @@ public abstract class Tartaruga {
 	 *  
 	 * @param lunghezza la lunghezza secondo cui sopstare la tartaruga.
 	 */
-	public void sposta( int lunghezza ) {
+	protected void sposta( int lunghezza ) {
 		aggiorna( lunghezza, false );
 	}
 
@@ -113,22 +113,23 @@ public abstract class Tartaruga {
 	 * cui la tartaruga farà il suo disegno una volta invocato il 
 	 * metodo {@link #disegna()}.
 	 */
-	public abstract void istruzioni();
+	protected abstract void istruzioni();
 
 	/**
 	 * Questo metodo ordina alla tartaruga di disegnare secondo 
 	 * le istruzioni contenute nel metodo {@link #istruzioni()}.
 	 */
 	@SuppressWarnings( "serial" )
-	public final void disegna() {
+	protected final void disegna() {
 		SwingUtilities.invokeLater( new Runnable() {
-
+			@Override
 			public void run() {
 
 				JFrame f = new JFrame();
 				f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 				f.add( new JPanel() {
-
+					
+					@Override
 					protected void paintComponent( Graphics g ) {
 						super.paintComponent( g );
 						g2 = (Graphics2D)g;
