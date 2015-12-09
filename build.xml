@@ -1,0 +1,132 @@
+<project name="tartaruga" default="compile" basedir=".">
+
+	<!--
+	Copyright 2015 Massimo Santini
+
+	This file is part of tartaruga.
+
+	tartaruga is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	tartaruga is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with tartaruga.  If not, see <http://www.gnu.org/licenses/>.
+	-->
+
+	<property name="src" location="src"/>
+	<property name="test" location="test"/>
+	<property name="dist" location="dist"/>
+	<property name="lib" location="${dist}/lib"/>
+	<property name="junit" location="${dist}/junit"/>
+	<property name="build" location="${dist}/build"/>
+	<property name="docs" location="${dist}/docs"/>
+	<property name="release" location="${dist}/release"/>
+
+	<property name="version" value="0.1-alpha"/>
+
+	<path id="classpath">
+		<fileset dir="${dist}/lib" includes="**/*.jar"/>
+	</path>
+
+	<target name="clean" description="clean up">
+		<delete dir="${dist}"/>
+	</target>
+
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${build}"/>
+		<mkdir dir="${junit}"/>
+		<mkdir dir="${release}"/>
+		<mkdir dir="${lib}"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile the source">
+		<javac
+			encoding="UTF-8"
+			includeantruntime="false"
+			srcdir="${src}"
+			destdir="${build}"
+			classpathref="classpath"
+			source="1.8"
+			target="1.8"
+		/>
+	</target>
+
+	<target name="getlibs" description="get required libs">
+		 <get
+			src="https://repo1.maven.org/maven2/junit/junit/4.11/junit-4.11.jar"
+			dest="${dist}/lib/junit.jar" verbose="true" usetimestamp="true" skipexisting="true"
+		/>
+		<get
+			src="https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+			dest="${dist}/lib/hamcrest.jar" verbose="true" usetimestamp="true" skipexisting="true"
+		/>
+	</target>
+
+	<target name="compile-test" depends="compile, getlibs" description="compile the tests">
+		<javac
+			encoding="UTF-8"
+			includeantruntime="false"
+			srcdir="${test}"
+			destdir="${build}"
+			classpathref="classpath"
+			source="1.8"
+			target="1.8"
+		/>
+	</target>
+
+	<target name="release" depends="compile,javadoc" description="generate the release binaries">
+		<jar jarfile="${release}/tartaruga-${version}.jar" basedir="${build}"/>
+		<zip destfile="${release}/tartaruga-${version}-javadoc.zip">
+			<zipfileset dir="${docs}" prefix="tartaruga-${version}-javadoc"/>
+		</zip>
+	</target>
+
+	<target name="test" depends="compile-test" description="run tests">
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${build}"/>
+				<pathelement path="${dist}/lib/junit.jar"/>
+				<pathelement path="${dist}/lib/hamcrest.jar"/>
+			</classpath>
+
+			<formatter type="brief" usefile="false"/>
+			<formatter type="xml"/>
+
+			<batchtest fork="yes" todir="${junit}">
+				<fileset dir="${test}">
+					<include name="**/*Test*.java"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="javadoc" description="generate javadoc">
+		<javadoc
+			additionalparam="-Xdoclint:all,-html"
+			encoding="UTF-8"
+			charset="UTF-8"
+			docencoding="UTF-8"
+			packagenames="it.*"
+			sourcepath="${src}"
+			destdir="${docs}"
+			version="true"
+			windowtitle="tartaruga"
+			locale="it_IT"
+			overview="${src}/overview.html"
+			source="1.8"
+		>
+			<link href="http://docs.oracle.com/javase/8/docs/api/"/>
+			<link offline="true" href="http://docs.oracle.com/javase/8/docs/api/" packagelistLoc="/Users/santini/Documents/LOG/docs/jdk1.8/docs/api/"/>
+			<doctitle>tartaruga</doctitle>
+			<bottom>Copyright 2015, Massimo Santini</bottom>
+		</javadoc>
+	</target>
+
+</project>
