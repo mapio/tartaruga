@@ -5,14 +5,53 @@
 	</head>
 	<body>
 
-	<p><strong>tartaruga</strong>
-	è una libreria  di supporto all'insegnamento di
-	<a href="http://boldi.di.unimi.it/Corsi/Mus2015/">Programmazione</a> del
-	corso di studi in <a href="http://www.ccdinf.unimi.it/it/corsiDiStudio/2015/F3Xof2/">
-	Informatica musicale</a> dell'<a href="http://www.unimi.it/">Università degli Studi
-	di Milano</a>. Si basa sul pacchetto
-	<a href="http://docs.oracle.com/javase/8/docs/api/javax/swing/package-summary.html">javax.swing</a> e fornisce alcune semplici primitive per la
-	<a href="https://en.wikipedia.org/wiki/Turtle_graphics">turtle graphics</a>. </p>
+<p><strong>tartaruga</strong> è una libreria  di supporto all'insegnamento di
+<a href="http://boldi.di.unimi.it/Corsi/Mus2015/">Programmazione</a> del corso
+di studi in <a
+href="http://www.ccdinf.unimi.it/it/corsiDiStudio/2015/F3Xof2/"> Informatica
+musicale</a> dell'<a href="http://www.unimi.it/">Università degli Studi di
+Milano</a>. Si basa sul pacchetto <a
+href="http://docs.oracle.com/javase/8/docs/api/javax/swing/package-
+summary.html">javax.swing</a> e fornisce alcune semplici primitive per la <a
+href="https://en.wikipedia.org/wiki/Turtle_graphics">turtle graphics</a>.</p>
+
+<p>Usare <samp>tartaruga</samp> è molto semplice, è sufficiente estendere la
+classe {@link it.unimi.di.tartaruga.Tartaruga} ed implementare il metodo
+astratto {@linkplain it.unimi.di.tartaruga.Tartaruga#istruzioni() istruzioni}
+popolandolo delle <em>istruzioni</em> che si intendono impartire alla
+tartaruga; fatto questo è sufficiente istanziare la classe ed invocare il
+metodo {@linkplain it.unimi.di.tartaruga.Tartaruga#disegna() disegna}.</p>
+
+<p>La tartaruga inizialmente si trova al centro di uno spazio di 400 x 400
+unità ed è orientata verso destra; le istruzioni che si possono impartire alla
+tartaruga sono:
+<ul>
+<li> {@linkplain it.unimi.di.tartaruga.Tartaruga#destra(int) destra}: che fa girare a destra la tartaruga,
+<li> {@linkplain it.unimi.di.tartaruga.Tartaruga#sinistra(int) sinistra}: che fa girare a sinistra la tartaruga,
+<li> {@linkplain it.unimi.di.tartaruga.Tartaruga#avanti(int) avanti}: che fa avanzare la tartaruga (disegnando),
+<li> {@linkplain it.unimi.di.tartaruga.Tartaruga#sposta(int) sposta}: che fa spostare la tartaruga (senza disegnare);
+</ul>
+gli spostamenti sono espressi in unità, mentre le rotazioni in gradi.
+</p>
+
+<p>Ad esempio, per far disegnare un quadrato di lato 100 alla tartaruga è sufficiente implementare la classe:</p>
+<pre><code>public class Quadrato extends Tartaruga {
+	public void istruzioni() {
+		for ( int i = 0; i &lt; 4; i++ ) {
+			avanti( 100 );
+			destra( 90 );
+		}
+	}
+	public static void main( String[] args ) {
+		new Quadrati().disegna();
+	}
+}</code></pre>
+
+<p>Il pacchetto {@link it.unimi.di.tartaruga.esempi} contiene altri esempi
+come ad esempio il <a
+<a href="https://en.wikipedia.org/wiki/Koch_snowflake">fiocco di neve di Koch</a>
+e il <a href="https://en.wikipedia.org/wiki/Sierpinski_triangle">triangolo di
+Sierpinski</a>.</p>
 
 	</body>
 </html>

@@ -28,6 +28,8 @@ import javax.swing.SwingUtilities;
 
 /**
  * Classe di partenza per la costruzione di un disegno con la tartaruga.
+ * 
+ * <p>Per maggiori informazioni si veda il <a href="{@docRoot}/overview-summary.html">sommario</a> della libreria.</p>
  */
 public abstract class Tartaruga {
 
