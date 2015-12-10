@@ -15,14 +15,9 @@ href="http://docs.oracle.com/javase/8/docs/api/javax/swing/package-
 summary.html">javax.swing</a> e fornisce alcune semplici primitive per la <a
 href="https://en.wikipedia.org/wiki/Turtle_graphics">turtle graphics</a>.</p>
 
-<p>Usare <samp>tartaruga</samp> è molto semplice, è sufficiente estendere la
-classe {@link it.unimi.di.tartaruga.Tartaruga} ed implementare il metodo
-astratto {@linkplain it.unimi.di.tartaruga.Tartaruga#istruzioni() istruzioni}
-popolandolo delle <em>istruzioni</em> che si intendono impartire alla
-tartaruga; fatto questo è sufficiente istanziare la classe ed invocare il
-metodo {@linkplain it.unimi.di.tartaruga.Tartaruga#disegna() disegna}.</p>
-
-<p>La tartaruga inizialmente si trova al centro di uno spazio di 400 x 400
+<p>Usare <strong>tartaruga</strong> è molto semplice, è sufficiente istanziare
+un oggetto di classe {@link it.unimi.di.tartaruga.Tartaruga}, esso rappresenta
+una tartaruga che inizialmente si trova al centro di uno spazio di 400 x 400
 unità ed è orientata verso destra; le istruzioni che si possono impartire alla
 tartaruga sono:
 <ul>
@@ -35,15 +30,13 @@ gli spostamenti sono espressi in unità, mentre le rotazioni in gradi.
 </p>
 
 <p>Ad esempio, per far disegnare un quadrato di lato 100 alla tartaruga è sufficiente implementare la classe:</p>
-<pre><code>public class Quadrato extends Tartaruga {
-	public void istruzioni() {
-		for ( int i = 0; i &lt; 4; i++ ) {
-			avanti( 100 );
-			destra( 90 );
-		}
-	}
+<pre><code>public class Quadrato {
 	public static void main( String[] args ) {
-		new Quadrati().disegna();
+		Tartartuga t = new Tartaruta();
+		for ( int i = 0; i &lt; 4; i++ ) {
+			t.avanti( 100 );
+			t.destra( 90 );
+		}
 	}
 }</code></pre>
 
