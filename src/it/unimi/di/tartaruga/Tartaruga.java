@@ -21,6 +21,7 @@ package it.unimi.di.tartaruga;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,37 +32,64 @@ import javax.swing.SwingUtilities;
  * 
  * <p>Per maggiori informazioni si veda il <a href="{@docRoot}/overview-summary.html">sommario</a> della libreria.</p>
  */
-public abstract class Tartaruga {
+public class Tartaruga {	
 
-	/** Il lato del {@link JPanel} visualizzato. */
-	private final int lato;
-	
-	/** Il {@link Graphics2D} avuto come argomento dal metodo {@link JPanel#paintComponent(Graphics2D)}. */
-	private Graphics2D g2;
-	
-	/** L'angolo corrente della tartaruga (in radianti). */
-	private double radianti;
-	
 	/** L'ascissa corrente della tartaruga. */
 	private double ascissa;
 	
 	/** L'ordinata corrente della tartaruga. */
 	private double ordinata;
 
+	/** L'angolo corrente della tartaruga (in radianti). */
+	private double radianti;
+	
+	/** Il {@link GeneralPath} che memorizza il disegno della tartaruga. */
+	private GeneralPath path;
+	
+	/** Il {@link JPanel} che memorizza il disegno della tartaruga. */
+	private JPanel panel;
+	
 	/** Prepara la tartaruga. 
 	 * 
 	 * @param lato la dimensione dello spazio di disegno.
 	 */
-	protected Tartaruga( int lato ) {
-		this.lato = lato;
-		this.g2 = null;
-		this.ascissa = 0;
-		this.ordinata = 0;
-		this.radianti = 0;
+	@SuppressWarnings( "serial" )
+	public Tartaruga( int lato ) {
+		ascissa = lato / 2;
+		ordinata = lato / 2;
+		radianti = 0;
+		path = new GeneralPath();
+		path.moveTo( ascissa, ordinata );
+		panel = new JPanel() {
+			@Override
+			protected void paintComponent( Graphics g ) {
+				super.paintComponent( g );
+				Graphics2D g2 = (Graphics2D)g;
+				int h = getHeight();
+				int w = getWidth();
+				ascissa = w / 2;
+				ordinata = h / 2;
+				g2.setColor( Color.WHITE );
+				g2.fillRect( 0, 0, w, h );
+				g2.setColor( Color.BLACK );
+				g2.draw( path );
+			}
+		};
+		SwingUtilities.invokeLater( new Runnable() {
+			@Override
+			public void run() {
+				JFrame f = new JFrame();
+				f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+				f.add( panel );
+				f.setSize( lato, lato );
+				f.setLocation( 200, 200 );
+				f.setVisible( true );
+			}
+		} );
 	}
 	
 	/** Prepara la tartaruga con uno spazio di disegno di lato 400. */
-	protected Tartaruga() {
+	public Tartaruga() {
 		this( 400 );
 	}
 	
@@ -69,7 +97,7 @@ public abstract class Tartaruga {
 	 * 
 	 * @param angolo l'angolo (in gradi) secondo cui ruotare la tartaruga.
 	 */
-	protected void sinistra( int angolo ) {
+	public void sinistra( int angolo ) {
 		this.radianti -= angolo * Math.PI / 180;
 	}
 
@@ -77,18 +105,16 @@ public abstract class Tartaruga {
 	 * 
 	 * @param angolo l'angolo (in gradi) secondo cui ruotare la tartaruga.
 	 */
-	protected void destra( int angolo ) {
+	public void destra( int angolo ) {
 		this.radianti += angolo * Math.PI / 180;
 	}
 
 	private void aggiorna( int lunghezza, boolean disegna ) {
-		if ( g2 == null ) throw new IllegalStateException( "Non è possibile disegnare prima di aver invocato il metodo disegna!" );
-		double nuovaAscissa = ascissa + lunghezza * Math.cos( radianti );
-		double nuovaOrdinata = ordinata + lunghezza * Math.sin( radianti );
-		if ( disegna ) 
-			g2.drawLine( (int)ascissa, (int)ordinata, (int)nuovaAscissa, (int)nuovaOrdinata );
-		ascissa = nuovaAscissa;
-		ordinata = nuovaOrdinata;
+		ascissa +=  lunghezza * Math.cos( radianti );
+		ordinata += lunghezza * Math.sin( radianti );
+		if ( disegna ) path.lineTo( ascissa, ordinata );
+		else path.moveTo( ascissa, ordinata );
+		panel.repaint();
 	}
 
 	/**
@@ -96,7 +122,7 @@ public abstract class Tartaruga {
 	 *  
 	 * @param lunghezza la lunghezza secondo cui muovere la tartaruga.
 	 */
-	protected void avanti( int lunghezza ) {
+	public void avanti( int lunghezza ) {
 		aggiorna( lunghezza, true );
 	}
 
@@ -105,55 +131,8 @@ public abstract class Tartaruga {
 	 *  
 	 * @param lunghezza la lunghezza secondo cui sopstare la tartaruga.
 	 */
-	protected void sposta( int lunghezza ) {
+	public void sposta( int lunghezza ) {
 		aggiorna( lunghezza, false );
-	}
-
-	/**
-	 * Questo metodo, da implementare nelle sottoclassi astratte
-	 * di {@link Tartaruga}, deve contenere le istruzioni secondo 
-	 * cui la tartaruga farà il suo disegno una volta invocato il 
-	 * metodo {@link #disegna()}.
-	 */
-	protected abstract void istruzioni();
-
-	/**
-	 * Questo metodo ordina alla tartaruga di disegnare secondo 
-	 * le istruzioni contenute nel metodo {@link #istruzioni()}.
-	 */
-	@SuppressWarnings( "serial" )
-	protected final void disegna() {
-		SwingUtilities.invokeLater( new Runnable() {
-			@Override
-			public void run() {
-
-				JFrame f = new JFrame();
-				f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-				f.add( new JPanel() {
-					
-					@Override
-					protected void paintComponent( Graphics g ) {
-						super.paintComponent( g );
-						g2 = (Graphics2D)g;
-
-						int h = getHeight();
-						int w = getWidth();
-						ascissa = w / 2;
-						ordinata = h / 2;
-
-						g2.setColor( Color.WHITE );
-						g2.fillRect( 0, 0, w, h );
-						g2.setColor( Color.BLACK );
-
-						istruzioni();
-					}
-
-				} );
-				f.setSize( lato, lato );
-				f.setLocation( 200, 200 );
-				f.setVisible( true );
-			}
-		} );
 	}
 
 }

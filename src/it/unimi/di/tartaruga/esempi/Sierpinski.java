@@ -5,41 +5,34 @@ import it.unimi.di.tartaruga.Tartaruga;
 /**
  * Disegna il <a href="https://en.wikipedia.org/wiki/Sierpinski_triangle">triangolo di Sierpinski</a>.
  */
-public class Sierpinski extends Tartaruga {
+public class Sierpinski {
 
-	public Sierpinski( int lato ) {
-		super( lato );
-	}
-
+	Tartaruga t = new Tartaruga( 600 );
+	
 	void sierpinski( int lato ) {
 		int i;
 
 		if ( lato < 20 )
 			for ( i = 0; i < 3; i++ ) {
-				avanti( lato );
-				sinistra( 120 );
+				t.avanti( lato );
+				t.sinistra( 120 );
 			}
 		else {
 			sierpinski( lato / 2 );
-			sposta( lato / 2 );
+			t.sposta( lato / 2 );
 			sierpinski( lato / 2 );
-			sinistra( 120 );
-			sposta( lato / 2 );
-			destra( 120 );
+			t.sinistra( 120 );
+			t.sposta( lato / 2 );
+			t.destra( 120 );
 			sierpinski( lato / 2 );
-			sinistra( 240 );
-			sposta( lato / 2 );
-			sinistra( 120 );
+			t.sinistra( 240 );
+			t.sposta( lato / 2 );
+			t.sinistra( 120 );
 		}
 	}
 
-	@Override
-	public void istruzioni() {
-		sierpinski( 200 );
-	}
-
 	public static void main( String[] args ) {
-		new Sierpinski( 600 ).disegna();
+		new Sierpinski().sierpinski( 200 );
 	}
 
 }

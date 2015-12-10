@@ -23,22 +23,21 @@ import it.unimi.di.tartaruga.Tartaruga;
 /**
  * Disegna una serie di quadrati ruotati.
  */
-public class Quadrati extends Tartaruga {
-
-	@Override
-	public void istruzioni() {
-			int n = 10;
-			for ( int j = 0; j < 360 / n; j++ ) {
-				for ( int i = 0; i < 4; i++ ) {
-					avanti( 100 );
-					destra( 90 );
-				}
-				destra( n );
-			}
-	}
+public class Quadrati {
 
 	public static void main( String[] args ) {
-		new Quadrati().disegna();
+		Tartaruga t = new Tartaruga();
+
+		int n = 10;
+		for ( int j = 0; j < 360 / n; j++ ) {
+			for ( int i = 0; i < 4; i++ ) {
+				t.avanti( 100 );
+				t.destra( 90 );
+			}
+			t.destra( n );
+		}
+
+
 	}
 
 }
