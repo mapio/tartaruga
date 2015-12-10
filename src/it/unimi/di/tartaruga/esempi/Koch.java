@@ -3,7 +3,7 @@ package it.unimi.di.tartaruga.esempi;
 import it.unimi.di.tartaruga.Tartaruga;
 
 /**
- * Disegna il <a href="https://en.wikipedia.org/wiki/Koch_snowflake">fiocco di neve di Koch</a>. 
+ * Disegna il <a href="https://en.wikipedia.org/wiki/Koch_snowflake">fiocco di neve di Koch</a>.
  */
 public class Koch {
 
@@ -26,5 +26,5 @@ public class Koch {
 	public static void main( String[] args ) {
 		new Koch().koch( 250 );
 	}
-	
+
 }

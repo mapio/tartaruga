@@ -8,7 +8,7 @@ import it.unimi.di.tartaruga.Tartaruga;
 public class Sierpinski {
 
 	Tartaruga t = new Tartaruga( 600 );
-	
+
 	void sierpinski( int lato ) {
 		int i;
 
