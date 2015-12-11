@@ -20,7 +20,7 @@ scaricabili dal precedente link.
 
 Una volta scaricato il `.jar`, ad esempio con il comando
 
-	curl -sLO https://github.com/mapio/j4im/releases/download/0.1-alpha/tartaruga-0.1-alpha.jar
+	curl -sLO https://github.com/mapio/tartaruga/releases/download/0.1-alpha/tartaruga-0.1-alpha.jar
 
 è possibile eseguire il codice d'esempio con
 
