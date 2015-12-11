@@ -20,17 +20,17 @@ scaricabili dal precedente link.
 
 Una volta scaricato il `.jar`, ad esempio con il comando
 
-	curl -sLO https://github.com/mapio/tartaruga/releases/download/0.1-alpha/tartaruga-0.1-alpha.jar
+	curl -sLO https://github.com/mapio/tartaruga/releases/download/0.2-alpha/tartaruga-0.2-alpha.jar
 
 è possibile eseguire il codice d'esempio con
 
-	java -cp tartaruga-0.1-alpha.jar it.unimi.di.tartaruga.esempi.Quadrati
+	java -cp tartaruga-0.2-alpha.jar it.unimi.di.tartaruga.esempi.Quadrati
 
 o compilare una propria classe (supponendo si chiami `MiaClasse`) che faccia
 uso della libreria con
 
-	javac -cp tartaruga-0.1-alpha.jar MiaClasse.java
-	java -cp tartaruga-0.1-alpha.jar:. MiaClasse
+	javac -cp tartaruga-0.2-alpha.jar MiaClasse.java
+	java -cp tartaruga-0.2-alpha.jar:. MiaClasse
 
 Come contribuire
 ----------------

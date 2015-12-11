@@ -67,8 +67,6 @@ public class Tartaruga {
 						Graphics2D g2 = (Graphics2D)g;
 						int h = getHeight();
 						int w = getWidth();
-						ascissa = w / 2;
-						ordinata = h / 2;
 						g2.setColor( Color.WHITE );
 						g2.fillRect( 0, 0, w, h );
 						g2.setColor( Color.BLACK );
