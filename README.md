@@ -1,7 +1,7 @@
 Tartaruga
 =========
 
-![build status](https://travis-ci.org/mapio/tartaruga.svg?branch=master)
+[![Build Status](https://travis-ci.org/mapio/tartaruga.svg)](https://travis-ci.org/mapio/tartaruga)
 
 Libreria di supporto all'insegnamento di
 [Programmazione](http://boldi.di.unimi.it/Corsi/Mus2015/) del corso di studi
