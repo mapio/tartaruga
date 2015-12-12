@@ -44,7 +44,7 @@ public class Tartaruga {
 	private double radianti;
 
 	/** Il {@link GeneralPath} che memorizza il disegno della tartaruga. */
-	private GeneralPath path;
+	GeneralPath path;
 
 	/** Il {@link JPanel} che memorizza il disegno della tartaruga. */
 	private JPanel panel;
@@ -54,37 +54,35 @@ public class Tartaruga {
 	 * @param lato la dimensione dello spazio di disegno.
 	 */
 	@SuppressWarnings( "serial" )
-		public Tartaruga( int lato ) {
-			ascissa = lato / 2;
-			ordinata = lato / 2;
-			radianti = 0;
-			path = new GeneralPath();
-			path.moveTo( ascissa, ordinata );
-			panel = new JPanel() {
-				@Override
-					protected void paintComponent( Graphics g ) {
-						super.paintComponent( g );
-						Graphics2D g2 = (Graphics2D)g;
-						int h = getHeight();
-						int w = getWidth();
-						g2.setColor( Color.WHITE );
-						g2.fillRect( 0, 0, w, h );
-						g2.setColor( Color.BLACK );
-						g2.draw( path );
-					}
-			};
-			SwingUtilities.invokeLater( new Runnable() {
-				@Override
-				public void run() {
-					JFrame f = new JFrame();
-					f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-					f.add( panel );
-					f.setSize( lato, lato );
-					f.setLocation( 200, 200 );
-					f.setVisible( true );
-				}
-			} );
-		}
+	public Tartaruga( int lato ) {
+		ascissa = lato / 2;
+		ordinata = lato / 2;
+		radianti = 0;
+		path = new GeneralPath();
+		path.moveTo( ascissa, ordinata );
+		panel = new JPanel() {
+			@Override
+			protected void paintComponent( Graphics g ) {
+				super.paintComponent( g );
+				Graphics2D g2 = (Graphics2D)g;
+				g2.setColor( Color.WHITE );
+				g2.fillRect( 0, 0, getWidth(), getHeight() );
+				g2.setColor( Color.BLACK );
+				g2.draw( path );
+			}
+		};
+		SwingUtilities.invokeLater( new Runnable() {
+			@Override
+			public void run() {
+				JFrame f = new JFrame();
+				f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+				f.add( panel );
+				f.setSize( lato, lato );
+				f.setLocation( 200, 200 );
+				f.setVisible( true );
+			}
+		} );
+	}
 
 	/** Prepara la tartaruga con uno spazio di disegno di lato 400. */
 	public Tartaruga() {
