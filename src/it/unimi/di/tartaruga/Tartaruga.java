@@ -96,6 +96,14 @@ public class Tartaruga {
 	public void sinistra( int angolo ) {
 		this.radianti -= angolo * Math.PI / 180;
 	}
+	
+	/** Ruota a sinistra la tartaruga dell'angolo dato.
+	 * 
+	 * @param angolo l'angolo (in gradi) secondo cui ruotare la tartaruga.
+	 */
+	public void sinistra( double angolo ) {
+		this.radianti -= angolo * Math.PI / 180;
+	}
 
 	/** Ruota a destra la tartaruga dell'angolo dato.
 	 *
@@ -104,7 +112,15 @@ public class Tartaruga {
 	public void destra( int angolo ) {
 		this.radianti += angolo * Math.PI / 180;
 	}
-
+	
+	/** Ruota a destra la tartaruga dell'angolo dato.
+	 * 
+	 * @param angolo l'angolo (in gradi) secondo cui ruotare la tartaruga.
+	 */
+	public void destra( double angolo ) {
+		this.radianti += angolo * Math.PI / 180;
+	}
+	
 	private void aggiorna( int lunghezza, boolean disegna ) {
 		ascissa +=  lunghezza * Math.cos( radianti );
 		ordinata += lunghezza * Math.sin( radianti );
