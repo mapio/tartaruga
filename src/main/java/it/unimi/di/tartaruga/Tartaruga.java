@@ -71,17 +71,14 @@ public class Tartaruga {
 				g2.draw( path );
 			}
 		};
-		SwingUtilities.invokeLater( new Runnable() {
-			@Override
-			public void run() {
-				JFrame f = new JFrame();
-				f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-				f.add( panel );
-				f.setSize( lato, lato );
-				f.setLocation( 200, 200 );
-				f.setVisible( true );
-			}
-		} );
+		SwingUtilities.invokeLater(() -> {
+			JFrame f = new JFrame();
+			f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+			f.add( panel );
+			f.setSize( lato, lato );
+			f.setLocation( 200, 200 );
+			f.setVisible( true );
+		});
 	}
 
 	/** Prepara la tartaruga con uno spazio di disegno di lato 400. */
@@ -124,8 +121,11 @@ public class Tartaruga {
 	private void aggiorna( int lunghezza, boolean disegna ) {
 		ascissa +=  lunghezza * Math.cos( radianti );
 		ordinata += lunghezza * Math.sin( radianti );
-		if ( disegna ) path.lineTo( ascissa, ordinata );
-		else path.moveTo( ascissa, ordinata );
+		if ( disegna ) {
+			path.lineTo( ascissa, ordinata );
+		} else {
+			path.moveTo( ascissa, ordinata );
+		}
 		panel.repaint();
 	}
 
